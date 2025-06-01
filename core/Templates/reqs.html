@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pickup Request Success</title>
+  <style>
+    body {
+      background: #f0f8ff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin: 0;
+    }
+    .success-container {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .success-image {
+      width: 120px;
+      margin-bottom: 20px;
+    }
+    .success-message {
+      font-size: 2rem;
+      color: #067c22;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .blast-area {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      width: 1px;
+      height: 1px;
+    }
+    .waste {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      opacity: 0;
+      will-change: transform, opacity;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="success-container">
+    <img class="success-image" src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Success">
+    <div class="success-message">
+      Pickup Request Submitted!
+    </div>
+    <div>
+      Thank you for helping keep the planet clean!
+    </div>
+  </div>
+  <div class="blast-area" id="blast-area"></div>
+
+  <script>
+    // Replace these URLs with your own e-waste icons
+    const wasteIcons = [
+      "https://cdn-icons-png.flaticon.com/512/2983/2983829.png", // battery
+      "https://cdn-icons-png.flaticon.com/512/2983/2983841.png", // light bulb
+      "https://cdn-icons-png.flaticon.com/512/3075/3075977.png", // phone
+      "https://cdn-icons-png.flaticon.com/512/3075/3075992.png", // monitor
+      "https://cdn-icons-png.flaticon.com/512/3075/3075981.png", // mouse
+      "https://cdn-icons-png.flaticon.com/512/3081/3081559.png", // keyboard
+      "https://cdn-icons-png.flaticon.com/512/3075/3075990.png", // laptop
+      "https://cdn-icons-png.flaticon.com/512/2983/2983843.png"  // plug
+    ];
+
+    function blastWaste(count = 18) {
+      const blastArea = document.getElementById('blast-area');
+      for (let i = 0; i < count; i++) {
+        const img = document.createElement('img');
+        img.src = wasteIcons[Math.floor(Math.random() * wasteIcons.length)];
+        img.className = 'waste';
+        // Angle in radians
+        const angle = (2 * Math.PI / count) * i + (Math.random() - 0.5) * 0.3;
+        const distance = 160 + Math.random() * 60;
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance;
+        img.style.transform = `translate(0px, 0px) scale(0.7) rotate(${Math.random() * 360}deg)`;
+        blastArea.appendChild(img);
+
+        setTimeout(() => {
+          img.style.transition = 'transform 1s cubic-bezier(.16,1.1,.46,1.04), opacity 0.5s';
+          img.style.opacity = 1;
+          img.style.transform = `translate(${x}px, ${y}px) scale(1.2) rotate(${Math.random() * 360}deg)`;
+        }, 100);
+
+        setTimeout(() => {
+          img.style.opacity = 0;
+        }, 1200);
+
+        setTimeout(() => {
+          blastArea.removeChild(img);
+        }, 1700);
+      }
+    }
+
+    // Trigger the blast animation on page load
+    window.onload = () => {
+      setTimeout(() => blastWaste(), 400);
+    };
+  </script>
+</body>
+</html>

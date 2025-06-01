@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python/
+env/
+venv/
+*.env
+.idea/ # For PyCharm users
+.vscode/ # For VS Code users
+db.sqlite3
+/static/ # If you collect static files locally, you might want to ignore the collected ones.
+/media/ # User uploaded media files
+
+# Django
+*.log
+local_settings.py
+.DS_Store # macOS
